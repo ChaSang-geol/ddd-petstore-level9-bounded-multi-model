@@ -235,9 +235,9 @@ npm run serve
 각 프로젝트 내에는 Dockerfile 이 포함되어있습니다. 이것을 빌드하기 위해서는 우선 maven 빌드로 jar 를 만들어준 후, jar 를 Dockerfile 로 다시 빌드해줍니다:
 
 ```
-cd pet-store
-mvn package -B
-docker build -t <도커허브계정이름>/pet:v1 .
+cd pet-domain
+docker build -t <도커허브계정이름>/pet:vmvn package -B
+1 .
 docker run <도커허브계정이름>/pet:v1
 
 docker login
@@ -262,4 +262,16 @@ chmod 700 get_helm.sh
 helm repo update
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm install my-kafka bitnami/kafka
+```
+
+
+
+# 다른 도메인서비스가 없는 경우
+```
+docker-compose exec -it kafka /bin/bash
+[appuser@01d073b35598 ~]$ cd /bin
+[appuser@01d073b35598 bin]$ ./kafka-console-producer --bootstrap-server localhost:9092 --topic petstore
+
+>{"eventType":"PetReserved","timestamp":1656637224644,"id":2,"appearance":0,"name":"멍이","type":"Cat","energy":1}
+>{"eventType":"PetUpdated","timestamp":1656637577180,"id":2,"appearance":5,"name":"멍이","type":"Cat","energy":1}
 ```
